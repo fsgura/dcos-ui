@@ -26,6 +26,13 @@ then
   info "Staged Less looks good"
 fi
 
+# Prettiefy staged JavaScript files
+if [ -n "${staged_javascript_files}" ]
+then
+  header "Prettiefy staged JavaScript files.."
+  npm run prettier ${staged_javascript_files} || exit $?
+fi
+
 # Test staged JavaScript files
 if [ -n "${staged_javascript_files}" ]
 then

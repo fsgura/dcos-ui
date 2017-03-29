@@ -433,12 +433,12 @@ class ServicesContainer extends React.Component {
   }
 
   render() {
+    const {children, params, routes} = this.props;
     // TODO react-router: Temp hack if we are deeper than overview/:id we should render child routes
-    if (Object.keys(this.props.params).length > 1) {
-      return this.props.children;
+    if (Object.keys(params).length > 1) {
+      return children;
     }
 
-    const {children, params, routes} = this.props;
     const {
       fetchErrors,
       filterExpression,
@@ -463,7 +463,7 @@ class ServicesContainer extends React.Component {
     if (isLoading) {
       return (
         <Page>
-          <Page.Header breadcrumbs={<ServiceBreadcrumbs />} />
+          <Page.Header breadcrumbs={<ServiceBreadcrumbs serviceID={itemId} />} />
           <Loader />
         </Page>
       );
@@ -479,8 +479,8 @@ class ServicesContainer extends React.Component {
         <PodDetail
           actions={this.getActions()}
           pod={item}>
-          {this.getModals(item)}
           {children}
+          {this.getModals(item)}
         </PodDetail>
       );
     }
@@ -494,8 +494,8 @@ class ServicesContainer extends React.Component {
           params={params}
           routes={routes}
           service={item}>
-          {this.getModals(item)}
           {children}
+          {this.getModals(item)}
         </ServiceDetail>
       );
     }
@@ -511,7 +511,7 @@ class ServicesContainer extends React.Component {
         );
       }
 
-      // TODO move modals to Page
+      // TODO: move modals to Page
       return (
         <ServiceTreeView
           filters={SERVICE_FILTERS}
@@ -522,8 +522,8 @@ class ServicesContainer extends React.Component {
           routes={routes}
           services={filteredServices.getItems()}
           serviceTree={item}>
-          {this.getModals(item)}
           {children}
+          {this.getModals(item)}
         </ServiceTreeView>
       );
     }
